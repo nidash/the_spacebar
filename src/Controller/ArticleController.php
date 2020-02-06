@@ -2,9 +2,10 @@
 namespace App\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
-class ArticleController {
+class ArticleController extends AbstractController {
 
   /**
    * @Route("/")
@@ -19,7 +20,15 @@ class ArticleController {
    */
   public function show($slug)
   {
-    return new Response(sprintf('New asteriods : %s',
-    $slug));
+    $comments = [
+      'Hello this is nice',
+      'Well i dont think so, you may agree but i may not',
+      'Both can fight, i love it.'
+    ];
+
+    return $this->render('article/show.html.twig', [
+      'title' => ucwords(str_replace('-', ' ', $slug)),
+      'comments' => $comments
+    ]);
   }
 }
